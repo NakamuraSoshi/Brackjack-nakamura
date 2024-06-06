@@ -35,6 +35,10 @@ public class SignupServlet extends HttpServlet {
         // 新規ユーザーの作成
         User newUser = new User(userId, userName, password, role);
 
+        //新規登録時にチップ１００枚を付与
+        newUser.setChips(100);
+
+
         try {
             // ユーザー登録処理
             SignupDao signupDao = new SignupDao();
