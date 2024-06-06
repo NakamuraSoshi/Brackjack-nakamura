@@ -8,48 +8,51 @@ public class User {
 	private String userPassword;
 	private String userName;
 	private String role;
+	private int chips;
 
-//コンストラクタ
-	public User(String loginId, String userName, String userPassword, String role) {
+	//コンストラクタ
+	public User(String loginId, String userName, String userPassword, String role ) {
 		this.userId = loginId;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role =role;
+		this.chips = 100;
 
 	}
 
-// ユーザーIDを返します
+	// ユーザーIDを返します
 
 	public String getUserId() {
 		return userId;
 	}
-//ユーザーIDをセットします
+	//ユーザーIDをセットします
 
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-// ユーザー名を返します
+	// ユーザー名を返します
 
 	public String getUserName() {
 		return userName;
 	}
-// ユーザー名をセットします
+	// ユーザー名をセットします
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-// ログインパスワードを返します
+	// ログインパスワードを返します
 
 	public String getUserPassword() {
 		return userPassword;
 	}
 
-//ログインパスワードをセットします
+	//ログインパスワードをセットします
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
 
+	//ロール
 	public String getRole() {
 		return role;
 	}
@@ -57,5 +60,15 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public int getChips() {
+		return chips;
+	}
+
+	public void setChips(int chips) {
+		this.chips = chips;
+	}
+
+
 
 }
