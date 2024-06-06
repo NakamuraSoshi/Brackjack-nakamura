@@ -7,10 +7,71 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザー管理</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+    h1 {
+        color: #333;
+    }
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    .no-users {
+        text-align: center;
+        color: #888;
+    }
+    form {
+        display: inline;
+    }
+    input[type="submit"] {
+        background-color: #ff4c4c;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    input[type="submit"]:hover {
+        background-color: #ff1a1a;
+    }
+    .back-link {
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
     <h1>ユーザー一覧</h1>
-    <table border="1">
+    <table>
         <tr>
             <th>ユーザーID</th>
             <th>ユーザー名</th>
@@ -19,7 +80,6 @@
             <th>操作</th>
         </tr>
         <%
-        	//requestから
             List<User> userList = (List<User>) request.getAttribute("userList");
 
             if (userList != null && !userList.isEmpty()) {
@@ -43,12 +103,13 @@
             } else {
         %>
         <tr>
-            <td colspan="5">ユーザーはいません。</td>
+            <td colspan="5" class="no-users">ユーザーはいません。</td>
         </tr>
         <%
             }
         %>
     </table>
-    <a href="adminMainMenu.jsp">メインメニューに戻る</a>
+    <a href="adminMainMenu.jsp" class="back-link">メインメニューに戻る</a>
 </body>
 </html>
+
