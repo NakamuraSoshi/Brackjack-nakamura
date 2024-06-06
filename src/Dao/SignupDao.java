@@ -19,7 +19,7 @@ public class SignupDao extends BaseDao {
 
         try {
             // SQL文の準備
-            String sql = "INSERT INTO user (user_id, user_name, user_password, role) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO user (user_id, user_name, user_password, role, chips) VALUES (?, ?, ?, ?, ?)";
             ps = con.prepareStatement(sql);
 
             // パラメータの設定
@@ -27,6 +27,7 @@ public class SignupDao extends BaseDao {
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getUserPassword());
             ps.setString(4, user.getRole());
+            ps.setInt(5, user.getChips());
 
             // SQL文の実行
             int rowsInserted = ps.executeUpdate();
