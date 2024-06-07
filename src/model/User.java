@@ -8,7 +8,7 @@ public class User {
 	private String userPassword;
 	private String userName;
 	private String role;
-	private int chips;
+
 
 	//コンストラクタ
 	public User(String loginId, String userName, String userPassword, String role ) {
@@ -16,7 +16,7 @@ public class User {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.role =role;
-		this.chips = 100;
+
 
 	}
 
@@ -52,23 +52,15 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
-	//ロール
+	//ロールを返す
 	public String getRole() {
 		return role;
 	}
 
+	//ロールをセット
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public int getChips() {
-		return chips;
-	}
-
-	public void setChips(int chips) {
-		this.chips = chips;
-	}
-
 
 
 }
