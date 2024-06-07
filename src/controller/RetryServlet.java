@@ -14,7 +14,7 @@ public class RetryServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.sendRedirect("BlackjackServlet?action=newgame");
+        response.sendRedirect("ChipSelectionServlet?action=newgame");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
