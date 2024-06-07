@@ -7,7 +7,7 @@
 <title>ユーザー削除確認</title>
 <style>
 body {
-    background-color: #2b2b2b;
+    background-color: #f2f2f2;
     color: #f1f1f1;
     font-family: 'Arial', sans-serif;
     display: flex;
@@ -30,7 +30,7 @@ body {
 h2 {
     font-size: 1.8em;
     margin-bottom: 25px;
-    color: #e74c3c; /* 強調するための赤色 */
+    color: #e74c3c;
 }
 
 form {
@@ -49,21 +49,21 @@ form {
 }
 
 .yes {
-    background-color: #e74c3c; /* 赤色で強調 */
+    background-color: #e74c3c;
     color: #fff;
 }
 
 .no {
-    background-color: #3498db; /* 青色で目立たせる */
+    background-color: #3498db;
     color: #fff;
 }
 
 .yes:hover {
-    background-color: #c0392b; /* ホバー時の色 */
+    background-color: #c0392b;
 }
 
 .no:hover {
-    background-color: #2980b9; /* ホバー時の色 */
+    background-color: #2980b9;
 }
 
 </style>
