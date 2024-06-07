@@ -69,7 +69,7 @@ h1 {
     <h1>ようこそ、<%= user.getUserName() %> さん！</h1>
     <ul class="menu">
         <li><a href="confilmDelete.jsp">ユーザーの削除</a></li>
-        <li><a href="chipSelection.jsp">ブラックジャックのゲーム</a></li>
+        <li><a href="ChipSelectionServlet">ブラックジャックのゲーム</a></li>
         <li><a href="ScoreDisplayServlet">成績表示</a></li>
         <li><a href="LogoutServlet">ログアウト</a></li>
     </ul>
