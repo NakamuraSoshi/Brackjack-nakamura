@@ -15,7 +15,7 @@ public class UserListDao extends BaseDao {
         super();
     }
 
-    // データベースからすべてのユーザーを取得するメソッド
+    // getAllUserメソッドでデータベースからすべてのユーザーを取得し、List<User>として返す
     public List<User> getAllUsers() throws SQLException, loginException {
         List<User> userList = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class UserListDao extends BaseDao {
         } catch (SQLException e) {
             throw new SQLException("ユーザーリストの取得に失敗しました。", e);
         }
-
+        //取得した全ユーザーの情報リストを返す
         return userList;
     }
 }
