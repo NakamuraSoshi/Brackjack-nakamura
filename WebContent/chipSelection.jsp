@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.User" %>
+<%@ page import="model.Chip" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,13 +49,15 @@ button:hover {
 </head>
 <body>
 <%
-    User user = (User) session.getAttribute("user");
-    int chips = user.getChips();
+	//Chipオブジェクトをセッションから取得し、getChipCout()メソッドでチップ数を獲得
+	Chip chip = (Chip) session.getAttribute("chip");
+	int chips = chip.getChipCount();
 %>
+
 <div class="container">
-    <h1>掛け金を選択してください</h1>
+    <h1>賭け金を選択してください</h1>
     <p>現在のチップ数: <%= chips %></p>
-    <form action="BlackjackServlet" method="post">
+    <form action="ChipLessServlet" method="post">
         <input type="hidden" name="action" value="bet">
         <select name="betAmount">
             <% for (int i = 1; i <= 10; i++) { %>
