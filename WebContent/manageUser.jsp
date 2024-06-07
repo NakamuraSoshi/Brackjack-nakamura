@@ -80,8 +80,10 @@
             <th>操作</th>
         </tr>
         <%
+        	//requestオブジェからuserList属性を取り出して、List<User>にキャスト
             List<User> userList = (List<User>) request.getAttribute("userList");
 
+        	//ユーザーがいるか確認
             if (userList != null && !userList.isEmpty()) {
                 for (User user : userList) {
         %>
