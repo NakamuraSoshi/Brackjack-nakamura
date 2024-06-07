@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import Dao.SignupDao;
 import exception.loginException;
+import model.Chip;
 import model.User;
 
 @WebServlet("/SignupServlet")
@@ -35,9 +36,6 @@ public class SignupServlet extends HttpServlet {
         // 新規ユーザーの作成
         User newUser = new User(userId, userName, password, role);
 
-        //新規登録時にチップ１００枚を付与
-        newUser.setChips(100);
-
 
         try {
             // ユーザー登録処理
@@ -47,6 +45,10 @@ public class SignupServlet extends HttpServlet {
             // 登録成功時はセッションにユーザーオブジェクトを格納し、メインメニュー画面へ
             HttpSession session = request.getSession();
             session.setAttribute("user", newUser);
+
+            //新規登録時にチップを１００枚付与
+            Chip chip = new Chip(userId, 100);
+            session.setAttribute("chip", chip);
 
             nextPage="mainMenu.jsp";
 
