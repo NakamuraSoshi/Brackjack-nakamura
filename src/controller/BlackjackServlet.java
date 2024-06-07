@@ -20,26 +20,26 @@ import model.User;
 public class BlackjackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// 初期状態を作る
-		Deck deck = new Deck();
-		Player player = new Player();
-		Dealer dealer = new Dealer();
-
-		// ゲーム開始 カード2枚引かせる
-		player.drawInitialCards(deck);
-		dealer.drawInitialCards(deck);
-
-		//セッションにデッキ、プレイヤー、ディーラを保存させてゲーム画面に移動
-		HttpSession session = request.getSession();
-		session.setAttribute("deck", deck);
-		session.setAttribute("player", player);
-		session.setAttribute("dealer", dealer);
-
-		request.getRequestDispatcher("blackjackGame.jsp").forward(request, response);
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//
+//		// 初期状態を作る
+//		Deck deck = new Deck();
+//		Player player = new Player();
+//		Dealer dealer = new Dealer();
+//
+//		// ゲーム開始 カード2枚引かせる
+//		player.drawInitialCards(deck);
+//		dealer.drawInitialCards(deck);
+//
+//		//セッションにデッキ、プレイヤー、ディーラを保存させてゲーム画面に移動
+//		HttpSession session = request.getSession();
+//		session.setAttribute("deck", deck);
+//		session.setAttribute("player", player);
+//		session.setAttribute("dealer", dealer);
+//
+//		request.getRequestDispatcher("blackjackGame.jsp").forward(request, response);
+//	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
