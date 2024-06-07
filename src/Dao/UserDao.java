@@ -31,7 +31,7 @@ public class UserDao extends BaseDao {
                 loginUser = new User(id, name, password, role);
             }
             if (loginUser == null) {
-                throw new loginException("ログインできませんでした");
+                throw new loginException("IDまたはPasswordが間違っています");
             }
         } catch (SQLException e) {
             e.printStackTrace();
