@@ -7,8 +7,8 @@
 <title>メインメニュー</title>
 <style>
 body {
-    background-color: #2b2b2b;
-    color: #fff;
+    background-color: #f4f4f4;
+    color: #333;
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
@@ -19,16 +19,16 @@ body {
 
 .container {
     text-align: center;
-    background-color: #1e1e1e;
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     font-size: 2em;
     margin-bottom: 20px;
-    color: #e74c3c; /* トランプの赤 */
+    color: #333
 }
 
 .menu {
@@ -43,7 +43,7 @@ h1 {
 .menu a {
     display: block;
     padding: 10px 20px;
-    background-color: #34495e;
+    background-color: #3498db;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -51,30 +51,28 @@ h1 {
 }
 
 .menu a:hover {
-    background-color: #e74c3c; /* トランプの赤 */
+    background-color: #2980b9;
 }
 
 .menu a:active {
-    background-color: #c0392b;
+    background-color: #1e6a99;
 }
 </style>
 </head>
 <body>
 <%
     // セッションからユーザー情報を取得
-
     model.User user = (model.User) session.getAttribute("user");
-
 %>
 
-	<div class="container">
+<div class="container">
     <h1>ようこそ、<%= user.getUserName() %> さん！</h1>
     <ul class="menu">
         <li><a href="confilmDelete.jsp">ユーザーの削除</a></li>
-        <li><a href="BlackjackServlet">ブラックジャックのゲーム</a></li>
+        <li><a href="chipSelection.jsp">ブラックジャックのゲーム</a></li>
         <li><a href="ScoreDisplayServlet">成績表示</a></li>
         <li><a href="LogoutServlet">ログアウト</a></li>
     </ul>
-    </div>
+</div>
 </body>
 </html>
