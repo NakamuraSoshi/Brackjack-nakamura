@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.UserScore" %>
-<%@ page import="model.Chip" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +74,6 @@
 
         <%
             UserScore userScore = (UserScore) request.getAttribute("userScore");
-            Chip chip = (Chip) request.getAttribute("chip");
             List<UserScore> topUsers = (List<UserScore>) request.getAttribute("topUsers");
 
             if (userScore != null) {
@@ -86,6 +84,7 @@
             <p>敗北数: <%= userScore.getLosses() %></p>
             <p>引き分け数: <%= userScore.getDraws() %></p>
             <p>勝率: <%= String.format("%.2f%%", userScore.getWinRate() * 100) %></p>
+            <p>チップ数: <%= userScore.getChipCount() %></p> <!-- チップ数の表示を追加 -->
         <%
             } else {
         %>
@@ -94,25 +93,13 @@
             }
         %>
 
-        <%
-            if (chip != null) {
-        %>
-            <h2>あなたの現在のチップ数</h2>
-            <p>チップ数: <%= chip.getChipCount() %></p>
-        <%
-            } else {
-        %>
-            <p class="no-data">チップ情報が見つかりませんでした。</p>
-        <%
-            }
-        %>
-
-        <h2>上位5名のユーザー</h2>
+        <h2>チップ数上位5名のユーザー</h2>
         <table>
             <tr>
                 <th>順位</th>
                 <th>ユーザー名</th>
                 <th>勝率</th>
+                <th>チップ数</th> <!-- チップ数の列を追加 -->
             </tr>
         <%
             if (topUsers != null && !topUsers.isEmpty()) {
@@ -123,21 +110,22 @@
                 <td><%= rank %></td>
                 <td><%= score.getUserName() %></td>
                 <td><%= String.format("%.2f%%", score.getWinRate() * 100) %></td>
+                <td><%= score.getChipCount() %></td> <!-- チップ数の表示を追加 -->
             </tr>
         <%
-                rank++;
+                    rank++;
                 }
             } else {
         %>
             <tr>
-                <td colspan="3" class="no-data">スコア情報がありません。</td>
+                <td colspan="4" class="no-data">上位のユーザーが見つかりませんでした。</td>
             </tr>
         <%
             }
         %>
         </table>
 
-        <a href="mainMenu.jsp">メインメニューに戻る</a>
+        <a href="mainMenu.jsp" class="back-link">メインメニューに戻る</a>
     </div>
 </body>
 </html>
