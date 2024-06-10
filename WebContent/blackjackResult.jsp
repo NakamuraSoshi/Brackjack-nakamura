@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Card" %>
-<%@ page import="java.util.List" %>
 <%@ page import="model.Player" %>
 <%@ page import="model.Dealer" %>
 <!DOCTYPE html>
@@ -16,37 +14,35 @@
     <h2>Your Hand:</h2>
     <ul>
         <%
-            // セッションからプレイヤーオブジェクトを取得
             Player player = (Player) session.getAttribute("player");
-            // プレイヤーの手札を表示
             for (Card card : player.getHand()) {
-                out.println("<li>" + card.toString() + "</li>");
+                String imagePath = card.getImagePath();
+                out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
             }
         %>
     </ul>
-    <p>Total Value: <%= player.getHandValue() %></p> <!-- プレイヤーの手札の合計値を表示 -->
+    <p>Total Value: <%= player.getHandValue() %></p>
 
     <h2>Dealer's Hand:</h2>
     <ul>
         <%
-            // セッションからディーラーオブジェクトを取得
             Dealer dealer = (Dealer) session.getAttribute("dealer");
-            // ディーラーの手札を表示
             for (Card card : dealer.getHand()) {
-                out.println("<li>" + card.toString() + "</li>");
+                String imagePath = card.getImagePath();
+                out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
             }
         %>
     </ul>
-    <p>Total Value: <%= dealer.getHandValue() %></p> <!-- ディーラーの手札の合計値を表示 -->
+    <p>Total Value: <%= dealer.getHandValue() %></p>
 
     <h2>Game Result:</h2>
-    <p><%= request.getAttribute("message") %></p> <!-- サーブレットから渡された結果メッセージを表示 -->
+    <p><%= request.getAttribute("message") %></p>
 
     <form method="post" action="RetryServlet">
-        <button type="submit" name="action" value="newgame">もう一度</button> <!-- 新しいゲームを開始するボタン -->
+        <button type="submit" name="action" value="newgame">もう一度</button>
     </form>
     <form action="mainMenu.jsp" method="post">
-    	<input type="submit" value="メインメニューに戻る" class="button"><br>
+        <input type="submit" value="メインメニューに戻る" class="button"><br>
     </form>
 </body>
 </html>
