@@ -8,6 +8,8 @@ public class UserScore {
     private int losses;
     private int draws;
 
+    private int chipCount;
+
     //勝利金額
     private int winAmount;
 
@@ -18,6 +20,7 @@ public class UserScore {
         this.wins = wins;
         this.losses = losses;
         this.draws = draws;
+
 
     }
 
@@ -52,6 +55,15 @@ public class UserScore {
 
     public int getWinAmount() {
     	return winAmount;
+    }
+
+ // chipCountのゲッターとセッターを追加
+    public int getChipCount() {
+        return chipCount;
+    }
+
+    public void setChipCount(int chipCount) {
+        this.chipCount = chipCount;
     }
 }
 
