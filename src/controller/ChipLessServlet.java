@@ -58,9 +58,9 @@ public class ChipLessServlet extends HttpServlet {
 				return;
 			}
 
-			//更新されたチップ情報をセッションに設定、賭け金の額をリクエストに設定
+			//更新されたチップ情報をセッションに設定、賭け金の額をセッションに設定
 			session.setAttribute("chip", chip);
-			request.setAttribute("betAmount", betAmount);
+			session.setAttribute("betAmount", betAmount);
 			request.getRequestDispatcher("BlackjackStartServlet").forward(request, response);
 		}
 	}
