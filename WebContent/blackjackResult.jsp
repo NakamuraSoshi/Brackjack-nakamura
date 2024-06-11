@@ -7,21 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Blackjack Result</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <h1>Blackjack Game Result</h1>
-
-    <h2>Your Hand:</h2>
-    <ul>
-        <%
-            Player player = (Player) session.getAttribute("player");
-            for (Card card : player.getHand()) {
-                String imagePath = card.getImagePath();
-                out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
-            }
-        %>
-    </ul>
-    <p>Total Value: <%= player.getHandValue() %></p>
 
     <h2>Dealer's Hand:</h2>
     <ul>
@@ -35,7 +24,18 @@
     </ul>
     <p>Total Value: <%= dealer.getHandValue() %></p>
 
-    <h2>Game Result:</h2>
+    <h2>Your Hand:</h2>
+    <ul>
+        <%
+            Player player = (Player) session.getAttribute("player");
+            for (Card card : player.getHand()) {
+                String imagePath = card.getImagePath();
+                out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
+            }
+        %>
+    </ul>
+    <p>Total Value: <%= player.getHandValue() %></p>
+
     <p><%= request.getAttribute("message") %></p>
 
     <form method="post" action="RetryServlet">
