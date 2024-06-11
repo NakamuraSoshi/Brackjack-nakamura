@@ -7,13 +7,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Blackjack Game</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <h1>Blackjack Game</h1>
 
-    <h2>Your Hand:</h2>
+    <h2>Dealer's Hand:</h2>
+    <ul>
+        <%
+            Dealer dealer = (Dealer) session.getAttribute("dealer");
+            if (dealer.getHand().size() > 0) {
+                String imagePath = dealer.getHand().get(0).getImagePath();
+                out.println("<li><img src='" + imagePath + "' alt='" + dealer.getHand().get(0).toString() + "'></li>");
+            }
+        %>
+        <li><img src="Cards/back_of_card.png" alt="Hidden Card"></li>
+    </ul>
+    <p>Total Value:</p>
 
-    <%--セッションから手札取得 forループで手札を反復処理 --%>
+    <h2>Your Hand:</h2>
     <ul>
         <%
             Player player = (Player) session.getAttribute("player");
@@ -24,21 +36,6 @@
         %>
     </ul>
     <p>Total Value: <%= player.getHandValue() %></p>
-
-    <h2>Dealer's Hand:</h2>
-
-    <%--最初の手札を表示して、２枚目は伏せる --%>
-
-    <ul>
-        <%
-            Dealer dealer = (Dealer) session.getAttribute("dealer");
-            if (dealer.getHand().size() > 0) {
-                String imagePath = dealer.getHand().get(0).getImagePath();
-                out.println("<li><img src='" + imagePath + "' alt='" + dealer.getHand().get(0).toString() + "'></li>");
-            }
-        %>
-        <li>Hidden</li>
-    </ul>
 
     <form method="post" action="BlackjackServlet">
         <button type="submit" name="action" value="hit">Hit</button>
