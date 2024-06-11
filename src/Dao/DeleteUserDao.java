@@ -18,8 +18,10 @@ public class DeleteUserDao extends BaseDao {
 
         try {
 
-        	//ユーザーのスコアを削除
+        	//ユーザー情報を削除
         	deleteScore(user.getUserId());
+
+        	deleteChips(user.getUserId());
 
         	//sqlでuserテーブルから特定のuser_idのレコード削除
         	//sql実行のためのpreparentStatementオブジェpsを作成し、executeUpdateで実行
@@ -46,4 +48,13 @@ public class DeleteUserDao extends BaseDao {
     		ps.executeUpdate();
     	}
     }
+    // チップを削除するメソッド
+	private void deleteChips(String userId) throws SQLException, loginException {
+	    String sql = "DELETE FROM chips WHERE user_id = ?";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setString(1, userId);
+	        ps.executeUpdate();
+	    }
+	}
 }
+
