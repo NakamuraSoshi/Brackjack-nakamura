@@ -44,6 +44,7 @@ public class ChipLessServlet extends HttpServlet {
 			currentChips -= betAmount;
 			chip.setChipCount(currentChips);
 
+
 			try {
 
 				//ChipDaoでDBのチップ情報を更新
@@ -62,6 +63,31 @@ public class ChipLessServlet extends HttpServlet {
 			session.setAttribute("chip", chip);
 			session.setAttribute("betAmount", betAmount);
 			request.getRequestDispatcher("BlackjackStartServlet").forward(request, response);
-		}
-	}
+
+		} else if ("split".equals(action)) {
+            int betAmount = (int) session.getAttribute("betAmount");
+            int currentChips = chip.getChipCount();
+
+            // チップ残高をマイナスまで許容する
+            currentChips -= betAmount;
+            chip.setChipCount(currentChips);
+
+            try {
+                // ChipDaoでDBのチップ情報を更新
+                ChipDao chipDao = new ChipDao();
+                chipDao.updateChips(chip);
+
+            } catch (loginException | SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("message", "チップの更新に失敗しました。");
+                request.setAttribute("error", "true");
+                request.getRequestDispatcher("chipSelection.jsp").forward(request, response);
+                return;
+            }
+
+            // 更新されたチップ情報をセッションに設定
+            session.setAttribute("chip", chip);
+            request.getRequestDispatcher("BlackjackSplitServlet").forward(request, response);
+        }
+    }
 }
