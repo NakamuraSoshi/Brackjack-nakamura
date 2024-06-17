@@ -29,104 +29,105 @@ public class BlackjackServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			// セッションから取得
-			HttpSession session = request.getSession();
-			Deck deck = (Deck) session.getAttribute("deck");
-			Player player = (Player) session.getAttribute("player");
-			Dealer dealer = (Dealer) session.getAttribute("dealer");
-			User user =(User) session.getAttribute("user");
-			Chip chip =(Chip)session.getAttribute("chip");
+            // セッションから取得
+            HttpSession session = request.getSession();
+            Deck deck = (Deck) session.getAttribute("deck");
+            Player player = (Player) session.getAttribute("player");
+            Dealer dealer = (Dealer) session.getAttribute("dealer");
+            User user =(User) session.getAttribute("user");
+            Chip chip =(Chip)session.getAttribute("chip");
 
-			double multiplier = 0;
+            double multiplier = 0;
 
-			// ユーザーのターン ヒットかスタンドか jspでアクション
-			String action = request.getParameter("action");
+            // ユーザーのターン ヒットかスタンドか jspでアクション
+            String action = request.getParameter("action");
 
-			// ifでヒットの内容 バーストしたらdealer勝利メッセと結果ページへ
-			if ("hit".equals(action)) {
-				player.drawCard(deck);
-				if (player.isBust()) {
-					updateBlackjackResult(user.getUserId(), false, false);
-					request.setAttribute("message", "You bust! Dealer wins!");
-					request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
-					return; // バーストした場合は処理を終了
-				}
-			} else if ("stand".equals(action)) {
-				// elseでユーザーがスタンド ディーラが一枚引く
-				dealer.drawCards(deck);
+            // ifでヒットの内容 バーストしたらdealer勝利メッセと結果ページへ
+            if ("hit".equals(action)) {
+                player.drawCard(deck);
+                if (player.isBust()) {
+                    updateBlackjackResult(user.getUserId(), false, false);
+                    request.setAttribute("message", "You bust! Dealer wins!");
+                    request.setAttribute("payout", 0);
+                    request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
+                    return; // バーストした場合は処理を終了
+                }
+            } else if ("stand".equals(action)) {
+                // elseでユーザーがスタンド ディーラが一枚引く
+                dealer.drawCards(deck);
 
-				// プレイヤーの勝利
-				String result;
-				//double multiplier = 0;
+                // プレイヤーの勝利
+                String result;
+                boolean isWin = false;
+                boolean isDraw = false;
 
-				boolean isWin = false;
-				boolean isDraw = false;
-
-
-				//21でプレイヤーが勝利
-				if (dealer.isBust() || player.getHandValue() > dealer.getHandValue()) {
+                // 21でプレイヤーが勝利
+                if (dealer.isBust() || player.getHandValue() > dealer.getHandValue()) {
                     if (player.getHandValue() == 21) {
-					result = "You win!";
-					isWin = true;
-					multiplier = 2.5;
-
-                    }else {
-                    	result = "You win!";
-                    	isWin = true;
-                    	multiplier = 2;
+                        result = "You win!";
+                        isWin = true;
+                        multiplier = 2.5;
+                    } else {
+                        result = "You win!";
+                        isWin = true;
+                        multiplier = 2;
                     }
+                } else if (player.getHandValue() < dealer.getHandValue()) {
+                    // ディーラの勝利
+                    result = "Dealer wins!";
+                    multiplier = 0;
+                } else {
+                    // 引き分け メッセと結果ページへ
+                    result = "It's a draw!";
+                    isDraw = true;
+                    multiplier = 1;
+                }
 
-				} else if (player.getHandValue() < dealer.getHandValue()) {
-					// ディーラの勝利
-					result = "Dealer wins!";
-					multiplier =0;
+                // 金額の計算
+                int betAmount = (int) session.getAttribute("betAmount");
+                int payout = (int) Math.floor(betAmount * multiplier);
+                chip.setChipCount(chip.getChipCount() + payout);
 
-				} else {
-					// 引き分け メッセと結果ページへ
-					result = "It's a draw!";
-					isDraw = true;
-					multiplier = 1;
-				}
+                updateBlackjackResult(user.getUserId(), isWin, isDraw);
 
-				//金額の計算
-				int betAmount = (int)(session.getAttribute("betAmount"));
-				int payout = (int) Math.floor(betAmount * multiplier);
-				chip.setChipCount(chip.getChipCount() + payout);
+                // DB更新
+                ChipDao chipDao = new ChipDao();
+                chipDao.updateChips(chip);
 
-				updateBlackjackResult(user.getUserId(), isWin, isDraw);
+                request.setAttribute("message", result);
+                request.setAttribute("payout", payout);
+                request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
+                return; // 処理を終了
 
-				//DB更新
-				ChipDao chipDao = new ChipDao();
-				chipDao.updateChips(chip);
 
-				request.setAttribute("message", result);
-				request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
-				return; // 処理を終了
-			}
+            }
 
-			// バーストしていないなら継続
-			request.getRequestDispatcher("blackjackGame.jsp").forward(request, response);
-		} catch (Exception e) {
-			handleException(request, response, e);
-		}
-	}
+            // 賭け金と合計チップ数をJSPに渡す
+            request.setAttribute("betAmount", session.getAttribute("betAmount"));
+            request.setAttribute("payout", 0);
 
-	//ブラックジャックの結果をデータベースに登録
-	private void updateBlackjackResult(String string, boolean isWin, boolean isDraw) throws ServletException {
-		try {
-			BlackjackResultDao resultDao = new BlackjackResultDao();
-			resultDao.updateBlackjackResult(string, isWin, isDraw);
-		} catch (loginException e) {
-			throw new ServletException("Failed to update blackjack result", e);
-		}
-	}
+            // バーストしていないなら継続
+            request.getRequestDispatcher("blackjackGame.jsp").forward(request, response);
+        } catch (Exception e) {
+            handleException(request, response, e);
+        }
+    }
 
-	//例外処理
-	private void handleException(HttpServletRequest request, HttpServletResponse response, Exception e)
-			throws ServletException, IOException {
+    // ブラックジャックの結果をデータベースに登録
+    private void updateBlackjackResult(String userId, boolean isWin, boolean isDraw) throws ServletException {
+        try {
+            BlackjackResultDao resultDao = new BlackjackResultDao();
+            resultDao.updateBlackjackResult(userId, isWin, isDraw);
+        } catch (loginException e) {
+            throw new ServletException("Failed to update blackjack result", e);
+        }
+    }
 
-		e.printStackTrace();
-		request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-		request.getRequestDispatcher("error.jsp").forward(request, response);
-	}
+    // 例外処理
+    private void handleException(HttpServletRequest request, HttpServletResponse response, Exception e)
+            throws ServletException, IOException {
+        e.printStackTrace();
+        request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+        request.getRequestDispatcher("error.jsp").forward(request, response);
+    }
 }
