@@ -60,4 +60,23 @@ public class ChipDao extends BaseDao {
 
         return chip;
     }
+
+ // チップを挿入するメソッド
+    public void insertChips(Chip chip) throws SQLException {
+        PreparedStatement ps = null;
+
+        try {
+            String sql = "INSERT INTO chips (user_id, chip_count) VALUES (?, ?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, chip.getUserId());
+            ps.setInt(2, chip.getChipCount());
+
+            ps.executeUpdate();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+        }
+    }
 }
+
