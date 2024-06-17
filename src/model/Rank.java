@@ -1,22 +1,27 @@
 package model;
 
-//トランプの種類を列挙型 ランク（ACEなど）に対する値を持たせる
-
 public enum Rank {
 
-	ACE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7),
-	EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10);
+    ACE(1, "ACE"), TWO(2, "TWO"), THREE(3, "THREE"), FOUR(4, "FOUR"), FIVE(5, "FIVE"), SIX(6, "SIX"), SEVEN(7, "SEVEN"),
+    EIGHT(8, "EIGHT"), NINE(9, "NINE"), TEN(10, "TEN"), JACK(10, "JACK"), QUEEN(10, "QUEEN"), KING(10, "KING");
 
-//各ランクの値を格納するためのインスタンス変数valueを宣言 finalで変更させない
+    //各ランクの値を格納するためのインスタンス変数valueを宣言 finalで変更させない
+    private final int value;
+    private final String name;
 
-	private final int value;
+    //コンストラクタ
+    Rank(int value, String name) {
+        this.value = value;
+        this.name = name;
+    }
 
-//コンストラクタ
-	Rank(int value){
-		this.value = value;
-	}
-//ゲッダーを設定し、呼び出すことでランクの値が取れるように
-	public int getValue() {
-		return value;
-	}
+    //ゲッダーを設定し、呼び出すことでランクの値が取れるように
+    public int getValue() {
+        return value;
+    }
+
+    //名前を取得するためのゲッダー
+    public String getName() {
+        return name;
+    }
 }
