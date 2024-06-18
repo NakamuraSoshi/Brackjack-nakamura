@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="result-container">
-       
+
 
         <h2>Dealer's Hand:</h2>
         <ul>
@@ -30,28 +30,13 @@
         <ul>
             <%
                 Player player = (Player) session.getAttribute("player");
-                List<Card> currentHand = player.getCurrentHand();
-                for (Card card : currentHand) {
+                for (Card card : player.getHand()) {
                     String imagePath = card.getImagePath();
                     out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
                 }
             %>
         </ul>
-        <p>Total Value: <%= player.getHandValue() %></p>
 
-        <% if (player.hasSplit()) { %>
-            <h2>Your Second Hand:</h2>
-            <ul>
-                <%
-                    List<Card> hand2 = player.getHand2();
-                    for (Card card : hand2) {
-                        String imagePath = card.getImagePath();
-                        out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
-                    }
-                %>
-            </ul>
-            <p>Total Value: <%= player.getHandValue() %></p>
-        <% } %>
 
         <p><%= request.getAttribute("message") %></p>
         <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
