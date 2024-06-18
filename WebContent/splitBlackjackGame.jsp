@@ -1,56 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.Player" %>
+<%@ page import="model.Dealer" %>
 <%@ page import="model.Card" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Split Blackjack Game</title>
+    <title>Blackjack Split</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <div class="blackjack-container">
-        <h2>Hand 1:</h2>
+
+        <div class="hand-container">
+
+            <h2>Dealer's Hand:</h2>
         <ul>
-            <% List<Card> hand1 = (List<Card>) request.getAttribute("hand1");
-               for (Card card : hand1) { %>
-                <li><img src="<%= card.getImagePath() %>" alt="<%= card.toString() %>"></li>
-            <% } %>
+            <%
+                Dealer dealer = (Dealer) session.getAttribute("dealer");
+                if (dealer.getHand().size() > 0) {
+                    String imagePath = dealer.getHand().get(0).getImagePath();
+                    out.println("<li><img src='" + imagePath + "' alt='" + dealer.getHand().get(0).toString() + "'></li>");
+                }
+            %>
+            <li><img src="Cards/back_of_card.png" alt="Hidden Card"></li>
         </ul>
-        <p>Total Value: <%= calculateHandValue(hand1) %></p>
+        <p>Total Value:</p>
+            <h2>Hand 1</h2>
+            <ul class="hand">
+                <%
+                    List<Card> hand1 = (List<Card>) request.getAttribute("hand1");
+                    if (hand1 != null) {
+                        for (Card card : hand1) {
+                %>
+                <li class="card">
+                    <img src="<%= card.getImagePath() %>" alt="<%= card.toString() %>">
+                </li>
+                <%
+                        }
+                    }
+                %>
+            </ul>
+            <p>Total Value: <%= request.getAttribute("hand1Value") %></p>
 
-        <h2>Hand 2:</h2>
-        <ul>
-            <% List<Card> hand2 = (List<Card>) request.getAttribute("hand2");
-               for (Card card : hand2) { %>
-                <li><img src="<%= card.getImagePath() %>" alt="<%= card.toString() %>"></li>
-            <% } %>
-        </ul>
-        <p>Total Value: <%= calculateHandValue(hand2) %></p>
+            <div class="button-container">
+                <form action="BlackjackSplitServlet" method="post">
+                    <input type="hidden" name="action" value="hit1">
+                    <button type="submit">Hit</button>
+                </form>
+                <form action="BlackjackSplitServlet" method="post">
+                    <input type="hidden" name="action" value="stand1">
+                    <button type="submit">Stand</button>
+                </form>
+            </div>
 
-        <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
-        <p>Payout: 0 Chips</p>
+            <%
+                String message1 = (String) request.getAttribute("message1");
+                if (message1 != null) {
+            %>
+            <p><%= message1 %></p>
+            <%
+                }
+            %>
+        </div>
 
-        <form method="post" action="BlackjackSplitServlet">
-            <button type="submit" name="action" value="hit1" class="button">Hit Hand 1</button>
-            <button type="submit" name="action" value="stand1" class="button">Stand Hand 1</button>
-            <button type="submit" name="action" value="hit2" class="button">Hit Hand 2</button>
-            <button type="submit" name="action" value="stand2" class="button">Stand Hand 2</button>
-        </form>
+        <div class="hand-container">
 
-        <form action="mainMenu.jsp" method="post">
-            <button type="submit" class="button">Return to Main Menu</button>
-        </form>
+            <h2>Dealer's Hand:</h2>
+            <ul>
+                <%
+                    if (dealer.getHand().size() > 0) {
+                        String imagePath = dealer.getHand().get(0).getImagePath();
+                %>
+                <li><img src="<%= imagePath %>" alt="<%= dealer.getHand().get(0).toString() %>"></li>
+                <%
+                    } else {
+                %>
+                <li><img src="Cards/back_of_card.png" alt="Hidden Card"></li>
+                <%
+                    }
+                %>
+            </ul>
+            <p>Total Value:</p>
+            <h2>Hand 2</h2>
+            <ul class="hand">
+                <%
+                    List<Card> hand2 = (List<Card>) request.getAttribute("hand2");
+                    if (hand2 != null) {
+                        for (Card card : hand2) {
+                %>
+                <li class="card">
+                    <img src="<%= card.getImagePath() %>" alt="<%= card.toString() %>">
+                </li>
+                <%
+                        }
+                    }
+                %>
+            </ul>
+            <p>Total Value: <%= request.getAttribute("hand2Value") %></p>
+
+            <div class="button-container">
+                <form action="BlackjackSplitServlet" method="post">
+                    <input type="hidden" name="action" value="hit2">
+                    <button type="submit">Hit</button>
+                </form>
+                <form action="BlackjackSplitServlet" method="post">
+                    <input type="hidden" name="action" value="stand2">
+                    <button type="submit">Stand</button>
+                </form>
+            </div>
+
+            <%
+                String message2 = (String) request.getAttribute("message2");
+                if (message2 != null) {
+            %>
+            <p><%= message2 %></p>
+            <%
+                }
+            %>
+        </div>
+
+        <div class="button-container">
+            <form action="mainMenu.jsp" method="post">
+                <button type="submit" class="button">メインメニューに戻る</button>
+            </form>
+        </div>
+
     </div>
+
 </body>
 </html>
-
-<%!
-    private int calculateHandValue(List<Card> hand) {
-        int totalValue = 0;
-        for (Card card : hand) {
-            totalValue += card.getValue();
-        }
-        return totalValue;
-    }
-%>
