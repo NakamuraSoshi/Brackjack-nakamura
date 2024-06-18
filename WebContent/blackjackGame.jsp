@@ -13,7 +13,6 @@
 <body>
     <div class="blackjack-container">
 
-
         <h2>Dealer's Hand:</h2>
         <ul>
             <%
@@ -27,12 +26,11 @@
         </ul>
         <p>Total Value:</p>
 
-         <h2>Your Hand:</h2>
+        <h2>Your Hand:</h2>
         <ul>
             <%
                 Player player = (Player) session.getAttribute("player");
-                List<Card> currentHand = player.getCurrentHand();
-                for (Card card : currentHand) {
+                for (Card card : player.getHand()) {
                     String imagePath = card.getImagePath();
                     out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
                 }
@@ -40,36 +38,25 @@
         </ul>
         <p>Total Value: <%= player.getHandValue() %></p>
 
-        <% if (player.hasSplit()) { %>
-            <h2>Your Second Hand:</h2>
-            <ul>
-                <%
-                    for (Card card : player.getHand2()) {
-                        String imagePath = card.getImagePath();
-                        out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
-                    }
-                %>
-            </ul>
-            <p>Total Value: <%= player.getHandValue() %></p>
-        <% } %>
-
         <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
         <p>Payout: 0 Chips</p>
 
         <form method="post" action="BlackjackServlet">
             <button type="submit" name="action" value="hit" class="button">Hit</button>
             <button type="submit" name="action" value="stand" class="button">Stand</button>
-            <% if (player.getHand().size() == 2 && !player.hasSplit() &&
-                  player.getHand().get(0).getRank().getValue() == player.getHand().get(1).getRank().getValue()) { %>
-                <button type="submit" name="action" value="split" formaction="ChipLessServlet" class="button">Split</button>
-            <% } %>
-            <% if (player.hasSplit() && player.isPlayingHand1()) { %>
-                <button type="submit" name="action" value="switch" class="button">Switch to Second Hand</button>
-            <% } %>
-            <% if (player.hasSplit() && !player.isPlayingHand1()) { %>
-                <button type="submit" name="action" value="switch" class="button">Switch to First Hand</button>
-            <% } %>
         </form>
+
+        <div>
+            <%
+                if (player.getHand().size() == 2 && player.getHand().get(0).getValue() == player.getHand().get(1).getValue()) {
+            %>
+            <form method="post" action="ChipLessServlet">
+                <button type="submit" name="action" value="split" class="button">Split</button>
+            </form>
+            <%
+                }
+            %>
+        </div>
 
         <form action="mainMenu.jsp" method="post">
             <button type="submit" class="button">メインメニューに戻る</button>
@@ -77,5 +64,3 @@
     </div>
 </body>
 </html>
-
-
