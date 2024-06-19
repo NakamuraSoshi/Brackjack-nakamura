@@ -64,7 +64,7 @@ public class BlackjackServlet extends HttpServlet {
                 // 21でプレイヤーが勝利
                 if (dealer.isBust() || player.getHandValue() > dealer.getHandValue()) {
                     if (player.getHandValue() == 21) {
-                        result = "You win!";
+                        result = "Blackjack! You win!";
                         isWin = true;
                         multiplier = 2.5;
                     } else {
