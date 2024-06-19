@@ -38,7 +38,14 @@ public class BlackjackSplitServlet extends HttpServlet {
 
             String action = request.getParameter("action");
 
-
+            if(player.getHandValue() > 21) {
+            	request.setAttribute("message1", "Hand 1 bust! ");
+            	player.standHand1();
+            }
+            if(player.getHand2Value() > 21) {
+            	request.setAttribute("message2", "Hand 2 bust! ");
+            	player.standHand2();
+            }
 
             // 各手札に対するヒットまたはスタンドのアクション
             if ("hit1".equals(action)) {
@@ -127,7 +134,8 @@ public class BlackjackSplitServlet extends HttpServlet {
         }
 
 
-        request.setAttribute("message", "Hand 1: " + result1 + " Hand 2: " + result2);
+        request.setAttribute("message", "Hand 1: " + result1);
+        request.setAttribute("message2", "Hand 2: " + result2);
         request.setAttribute("payout", payout1 + payout2);
         request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
     }
