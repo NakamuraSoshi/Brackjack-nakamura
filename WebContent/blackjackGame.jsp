@@ -3,6 +3,7 @@
 <%@ page import="model.Dealer" %>
 <%@ page import="model.Card" %>
 <%@ page import="java.util.List" %>
+<%@ page import="model.Chip" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+
     <div class="blackjack-container">
 
         <h2>Dealer's Hand:</h2>
@@ -38,25 +40,26 @@
         </ul>
         <p>Total Value: <%= player.getHandValue() %></p>
 
+		<p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %> Chips</p>
         <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
-        <p>Payout: 0 Chips</p>
+
 
         <form method="post" action="BlackjackServlet">
             <button type="submit" name="action" value="hit" class="button">Hit</button>
             <button type="submit" name="action" value="stand" class="button">Stand</button>
-        </form>
 
-        <div>
+
+
             <%
                 if (player.getHand().size() == 2 && player.getHand().get(0).getValue() == player.getHand().get(1).getValue()) {
             %>
-            <form method="post" action="ChipLessServlet">
-                <button type="submit" name="action" value="split" class="button">Split</button>
-            </form>
+
+                <button type="submit" name="action" value="split" formaction="ChipLessServlet" class="button">Split</button>
+
             <%
                 }
             %>
-        </div>
+		</form>
 
         <form action="mainMenu.jsp" method="post">
             <button type="submit" class="button">メインメニューに戻る</button>
