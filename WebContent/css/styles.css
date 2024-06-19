@@ -2,19 +2,17 @@ body {
     font-family: Arial, sans-serif;
     background-color: #2c3e50;
     color: #ecf0f1;
-    text-align: center;
+	text-align: center;
     margin: 0;
     padding: 0;
+
 }
 
-h1 {
-    margin-top: 20px;
-    font-size: 1.5em;
-}
+
 
 h2 {
     font-size: 1em;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 ul {
@@ -28,8 +26,8 @@ li {
 }
 
 img {
-    max-width: 80px; /* 最大幅を設定 */
-    max-height: 120px; /* 最大高さを設定 */
+    max-width: 80px;
+    max-height: 120px;
 }
 
 .button {
@@ -49,11 +47,10 @@ img {
     background-color: #2980b9;
 }
 
-.blackjack-container, .result-container {
+.blackjack-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     height: 100vh;
 }
 
@@ -72,4 +69,42 @@ form button {
 
 form button:hover {
     background-color: #2980b9;
+}
+
+.hand-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hands {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.hand {
+    display: flex;
+    flex-direction: column;
+ 	align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 20px;
+}
+
+.card {
+    margin: 5px;
+}
+
+.button-container {
+    display: flex;
+   justify-content: center;
+    margin: 10px 0;
+}
+
+.button-container form {
+    margin: 0 10px;
+   display: inline-block;
 }
