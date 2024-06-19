@@ -3,6 +3,7 @@
 <%@ page import="model.Player" %>
 <%@ page import="model.Dealer" %>
 <%@ page import="java.util.List"%>
+<%@ page import="model.Chip" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,21 @@
 
 
         <p><%= request.getAttribute("message") %></p>
-        <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
+
+        <% if (player.getHand2() != null && !player.getHand2().isEmpty()) { %>
+            <h2>Your Hand 2:</h2>
+            <ul>
+                <%
+                    for (Card card : player.getHand2()) {
+                        String imagePath = card.getImagePath();
+                %>
+                <li><img src="<%= imagePath %>" alt="<%= card.toString() %>"></li>
+                <% } %>
+            </ul>
+            <p><%= request.getAttribute("message2") %></p>
+        <% } %>
+
+        <p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %> Chips</p>
         <p>Payout: <%= request.getAttribute("payout") %> Chips</p>
 
         <form method="post" action="RetryServlet">
