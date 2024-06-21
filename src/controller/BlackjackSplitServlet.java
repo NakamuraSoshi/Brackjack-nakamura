@@ -54,6 +54,7 @@ public class BlackjackSplitServlet extends HttpServlet {
                 request.setAttribute("hand1Value", hand1Value);
                 if (player.isBust() && player.getHandValue() > 21) {
                     request.setAttribute("message1", "Hand 1 bust! ");
+                    player.standHand1();
                 }
 
             } else if ("stand1".equals(action)) {
@@ -67,6 +68,7 @@ public class BlackjackSplitServlet extends HttpServlet {
                 request.setAttribute("hand2Value", hand2Value);
                 if (player.isBust() && player.getHand2Value() > 21) {
                     request.setAttribute("message2", "Hand 2 bust! ");
+                    player.standHand2();
                 }
 
             } else if ("stand2".equals(action)) {
