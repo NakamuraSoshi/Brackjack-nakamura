@@ -11,7 +11,7 @@
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         margin: 0;
-        padding: 20px;
+        padding: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>スコア表示</h1>
+
 
         <%
             UserScore userScore = (UserScore) request.getAttribute("userScore");
