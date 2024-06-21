@@ -93,11 +93,19 @@
             <td><%= user.getUserPassword() %></td>
             <td><%= user.getRole() %></td>
             <td>
-                <form action="AdminDeleteUserServlet" method="post">
+
+            <%
+            if (!"admin".equals(user.getRole())) {
+
+            %>
+                <form action="adminConfirmDelete.jsp" method="post">
                     <input type="hidden" name="userId" value="<%= user.getUserId() %>">
                     <input type="hidden" name="confirm" value="true">
                     <input type="submit" value="削除">
                 </form>
+                <%
+                    }
+                %>
             </td>
         </tr>
         <%
