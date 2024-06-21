@@ -3,6 +3,7 @@
 <%@ page import="model.Dealer" %>
 <%@ page import="model.Card" %>
 <%@ page import="java.util.List" %>
+<%@ page import="model.Chip" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
 
         <div class="hands">
             <div class="hand">
-                <h2>Hand 1</h2>
+                <h2>Your Hand:</h2>
                 <ul>
                     <%
                         List<Card> hand1 = (List<Card>) request.getAttribute("hand1");
@@ -45,7 +46,7 @@
                     %>
                 </ul>
                 <p>Total Value: <%= request.getAttribute("hand1Value") %></p>
-                <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
+                <p>Bets: <%= session.getAttribute("betAmount") %> </p>
                 <div class="button-container ">
                     <%
                         String message1 = (String) request.getAttribute("message1");
@@ -72,8 +73,9 @@
                 %>
             </div>
 
+
             <div class="hand">
-                <h2>Hand 2</h2>
+                <h2>Your Hand2:</h2>
                 <ul>
                     <%
                         List<Card> hand2 = (List<Card>) request.getAttribute("hand2");
@@ -89,7 +91,7 @@
                     %>
                 </ul>
                 <p>Total Value: <%= request.getAttribute("hand2Value") %></p>
-                <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
+                <p>Bets: <%= session.getAttribute("betAmount") %> </p>
                 <div class="button-container ">
                     <%
                         String message2 = (String) request.getAttribute("message2");
@@ -116,6 +118,8 @@
                 %>
             </div>
         </div>
+
+		<p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %></p>
 
         <div class="button-container">
             <form action="mainMenu.jsp" method="post">
