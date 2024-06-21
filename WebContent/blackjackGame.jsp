@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-
     <div class="blackjack-container">
 
         <h2>Dealer's Hand:</h2>
@@ -40,8 +39,8 @@
         </ul>
         <p>Total Value: <%= player.getHandValue() %></p>
 
-		<p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %> Chips</p>
-        <p>Bets: <%= session.getAttribute("betAmount") %> Chips</p>
+		<p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %> </p>
+        <p>Bets: <%= session.getAttribute("betAmount") %> </p>
 
 
         <form method="post" action="BlackjackServlet">
