@@ -5,7 +5,7 @@ body {
 	text-align: center;
     margin: 0;
     padding: 0;
-
+	overflow: hidden;
 }
 
 
@@ -54,6 +54,13 @@ img {
     height: 100vh;
 }
 
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
 form button {
     display: inline-block;
     padding: 10px 20px;
@@ -75,14 +82,14 @@ form button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .hands {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .hand {
@@ -91,7 +98,8 @@ form button:hover {
  	align-items: center;
     list-style: none;
     padding: 0;
-    margin: 0 20px;
+    margin: 0px;
+
 }
 
 .card {
@@ -107,4 +115,20 @@ form button:hover {
 .button-container form {
     margin: 0 10px;
    display: inline-block;
+}
+
+.hand-container.has-hand2 .hands {
+    justify-content: space-around;
+}
+
+.hand-container.single-hand .hands {
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+    background-color: #2c3e50;
+    padding: 200px;
+    border-radius: 10px;
+
 }
