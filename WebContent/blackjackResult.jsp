@@ -14,7 +14,6 @@
 <body>
     <div class="result-container">
 
-
         <h2>Dealer's Hand:</h2>
         <ul>
             <%
@@ -24,46 +23,62 @@
                     out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
                 }
             %>
+
         </ul>
         <p>Total Value: <%= dealer.getHandValue() %></p>
 
-        <h2>Your Hand:</h2>
-        <ul>
-            <%
-                Player player = (Player) session.getAttribute("player");
-                for (Card card : player.getHand()) {
-                    String imagePath = card.getImagePath();
-                    out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
-                }
-            %>
-        </ul>
+        <%
+            Player player = (Player) session.getAttribute("player");
+        %>
 
-
-        <p><%= request.getAttribute("message") %></p>
-
-        <% if (player.getHand2() != null && !player.getHand2().isEmpty()) { %>
-            <h2>Your Hand 2:</h2>
-            <ul>
-                <%
-                    for (Card card : player.getHand2()) {
-                        String imagePath = card.getImagePath();
-                %>
-                <li><img src="<%= imagePath %>" alt="<%= card.toString() %>"></li>
+        <div class="hand-container <% if (player.getHand2() != null && !player.getHand2().isEmpty()) { %> has-hand2 <% } else { %> single-hand <% } %>">
+            <div class="hands">
+                <div class="hand">
+                    <h2>Your Hand:</h2>
+                    <ul>
+                        <%
+                            for (Card card : player.getHand()) {
+                                String imagePath = card.getImagePath();
+                                out.println("<li><img src='" + imagePath + "' alt='" + card.toString() + "'></li>");
+                            }
+                        %>
+                    </ul>
+                    <p><%= request.getAttribute("message") %></p>
+                </div>
+                <% if (player.getHand2() != null && !player.getHand2().isEmpty()) { %>
+                <div class="hand">
+                    <h2>Your Hand 2:</h2>
+                    <ul>
+                        <%
+                            for (Card card : player.getHand2()) {
+                                String imagePath = card.getImagePath();
+                        %>
+                        <li><img src="<%= imagePath %>" alt="<%= card.toString() %>"></li>
+                        <% } %>
+                    </ul>
+                    <p><%= request.getAttribute("message2") %></p>
+                </div>
                 <% } %>
-            </ul>
-            <p><%= request.getAttribute("message2") %></p>
-        <% } %>
+            </div>
+        </div>
 
-        <p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %> Chips</p>
-        <p>Payout: <%= request.getAttribute("payout") %> Chips</p>
+        <p>Total chips: <%= ((Chip)session.getAttribute("chip")).getChipCount() %></p>
+        <p>Payout: <%= request.getAttribute("payout") %> </p>
 
-        <form method="post" action="RetryServlet">
-            <button type="submit" name="action" value="newgame" class="button">もう一度</button>
-        </form>
-        <form action="mainMenu.jsp" method="post">
-            <button type="submit" class="button">メインメニューに戻る</button>
-        </form>
+
+            <form action="ChipLessServlet" method="post">
+        <input type="hidden" name="action" value="bet">
+        <select name="betAmount">
+            <% for (int i = 1; i <= 10; i++) { %>
+                <option value="<%= i %>" <%= (i == 10) ? "selected" : "" %>><%= i %> 枚</option>
+            <% } %>
+        </select>
+        <button type="submit" class="button">Bet</button>
+    </form>
+            <form action="mainMenu.jsp" method="post">
+                <button type="submit" class="button">メインメニューに戻る</button>
+            </form>
+
     </div>
 </body>
 </html>
-
