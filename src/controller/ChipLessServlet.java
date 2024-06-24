@@ -87,7 +87,7 @@ public class ChipLessServlet extends HttpServlet {
 
             // 更新されたチップ情報をセッションに設定
             session.setAttribute("chip", chip);
-            request.getRequestDispatcher("BlackjackSplitServlet").forward(request, response);
+            request.getRequestDispatcher("BlackjackSplitStartServlet").forward(request, response);
         }
     }
 }
