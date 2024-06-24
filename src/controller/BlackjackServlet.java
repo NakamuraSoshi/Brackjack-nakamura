@@ -47,7 +47,7 @@ public class BlackjackServlet extends HttpServlet {
                 player.drawCard(deck);
                 if (player.isBust()) {
                     updateBlackjackResult(user.getUserId(), false, false);
-                    request.setAttribute("message", "You bust! Dealer wins!");
+                    request.setAttribute("message", "You bust! Dealer wins! 0x");
                     request.setAttribute("payout", 0);
                     request.getRequestDispatcher("blackjackResult.jsp").forward(request, response);
                     return; // バーストした場合は処理を終了
@@ -64,21 +64,21 @@ public class BlackjackServlet extends HttpServlet {
                 // 21でプレイヤーが勝利
                 if (dealer.isBust() || player.getHandValue() > dealer.getHandValue()) {
                     if (player.getHandValue() == 21) {
-                        result = "Blackjack! You win!";
+                        result = "Blackjack! You win! 2.5x";
                         isWin = true;
                         multiplier = 2.5;
                     } else {
-                        result = "You win!";
+                        result = "You win! 2x";
                         isWin = true;
                         multiplier = 2;
                     }
                 } else if (player.getHandValue() < dealer.getHandValue()) {
                     // ディーラの勝利
-                    result = "Dealer wins!";
+                    result = "Dealer wins! 0x";
                     multiplier = 0;
                 } else {
                     // 引き分け メッセと結果ページへ
-                    result = "It's a draw!";
+                    result = "It's a draw! 1x";
                     isDraw = true;
                     multiplier = 1;
                 }
