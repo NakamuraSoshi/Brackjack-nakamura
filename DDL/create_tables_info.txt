@@ -1,0 +1,25 @@
+Table	Create Table
+user	CREATE TABLE `user`
+(\n  `user_id` varchar(255) NOT NULL,
+\n  `user_name` varchar(255) NOT NULL,
+\n  `user_password` varchar(255) NOT NULL,
+\n  `role` varchar(10) DEFAULT NULL,
+\n  PRIMARY KEY (`user_id`)\n)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+Table	Create Table
+scores	CREATE TABLE `scores`
+(\n  `user_id` varchar(50) NOT NULL,
+\n  `matches` int(11) DEFAULT 0,
+\n  `wins` int(11) DEFAULT 0,
+\n  `losses` int(11) DEFAULT 0,
+\n  `draws` int(11) DEFAULT 0,
+\n  PRIMARY KEY (`user_id`)\n)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+Table	Create Table
+chips	CREATE TABLE `chips`
+(\n  `user_id` varchar(255) NOT NULL,
+\n  `chip_count` int(11) DEFAULT 100,
+\n  PRIMARY KEY (`user_id`)\n)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
