@@ -10,24 +10,24 @@ public class BlackjackGameResult {
         int dealerValue = calculateHandValue(dealerHand);
 
         if (playerValue > 21) {
-            return "Bust! Dealer wins!";
+            return "You bust! Dealer wins! 0x";
         } else if (dealerValue > 21 || playerValue > dealerValue) {
-            return playerValue == 21 ? "Blackjack! You win!" : "You win!";
+            return playerValue == 21 ? "Blackjack! You win! 2.5x" : "You win! 2x";
         } else if (playerValue < dealerValue) {
-            return "Dealer wins!";
+            return "Dealer wins! 0x";
         } else {
-            return "It's a draw!";
+            return "It's a draw! 1x";
         }
     }
 
     //払い戻し計算
     public int calculatePayout(String result, int betAmount) {
         switch (result) {
-            case "Blackjack! You win!":
+            case "Blackjack! You win! 2.5x":
                 return (int) (betAmount * 2.5);
-            case "You win!":
+            case "You win! 2x":
                 return (int) (betAmount * 2);
-            case "It's a draw!":
+            case "It's a draw! 1x":
                 return betAmount;
             default:
                 return 0;
