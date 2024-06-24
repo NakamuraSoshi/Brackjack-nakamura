@@ -6,67 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>成績表示</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-    }
-    h1, h2 {
-        color: #333;
-    }
-    .container {
-        background-color: #fff;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        width: 80%;
-        max-width: 800px;
-        text-align: center;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: center;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-    .no-data {
-        color: #888;
-    }
-    .back-link {
-        display: inline-block;
-        margin-top: 20px;
-        color: #007bff;
-        text-decoration: none;
-        padding: 10px 20px;
-        border: 1px solid #007bff;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s;
-    }
-    .back-link:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="css/scoreDisplay.css">
 </head>
 <body>
     <div class="container">
