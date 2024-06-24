@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Error</h1>
-    <p>${errorMessage}</p>
+    <p></p>
     <a href="mainMenu.jsp">メインメニューに戻る</a>
 </body>
 </html>
